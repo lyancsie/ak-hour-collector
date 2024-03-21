@@ -1,10 +1,11 @@
-package org.lyancsie;
+package org.lyancsie.extractor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.lyancsie.lesson.PrivateLesson;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,12 +14,11 @@ import java.util.Objects;
 import java.util.Set;
 
 @Slf4j
-public class PrivateLessonHtmlExtractorStrategy implements LessonHtmlExtractorStrategy<PrivateLesson>{
+public class PrivateLessonHtmlExtractorStrategy implements LessonHtmlExtractorStrategy<PrivateLesson> {
     @Override
     public Set<PrivateLesson> extract(String lessonHtml) {
         Set<PrivateLesson> lessons = new HashSet<>();
         Document doc = Jsoup.parse(lessonHtml);
-        //group lesson: get(4), private lesson: first
         Element table = doc.select("table").first();
         Elements rows = Objects.requireNonNull(table).select("tr");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
@@ -38,7 +38,7 @@ public class PrivateLessonHtmlExtractorStrategy implements LessonHtmlExtractorSt
                                Error parsing lesson. Columns: {}
                                Error: {}
                             """,
-                        cols.toString(), e.toString());
+                        cols, e.toString());
                     break;
                 }
             } else {

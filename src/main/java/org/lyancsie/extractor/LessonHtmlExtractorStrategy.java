@@ -1,6 +1,6 @@
-package org.lyancsie;
+package org.lyancsie.extractor;
 
-import com.google.gson.JsonObject;
+import org.lyancsie.lesson.Lesson;
 
 import java.util.Set;
 

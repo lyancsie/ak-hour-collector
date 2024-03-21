@@ -1,10 +1,11 @@
-package org.lyancsie;
+package org.lyancsie.extractor;
 
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.lyancsie.lesson.GroupLesson;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,12 +21,12 @@ public class GroupLessonHtmlExtractorStrategy implements LessonHtmlExtractorStra
         Set<GroupLesson> lessons = new HashSet<>();
         Document doc = Jsoup.parse(lessonHtml);
         Element table = doc.select("table").get(4);
-        log.debug("Table: {}", table.toString());
+        log.debug("Table: {}", table);
         Elements rows = Objects.requireNonNull(table).select("tr");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd");
         for (Element row : rows) {
             Elements cols = row.select("td");
-            //if (cols.size() == 4) {
+            if (cols.size() == 13) {
                 try {
                     log.info("Cols.size: {}", cols.size());
                     final var lesson = new GroupLesson(
@@ -39,13 +40,12 @@ public class GroupLessonHtmlExtractorStrategy implements LessonHtmlExtractorStra
                                Error parsing lesson. Columns: {}
                                Error: {}
                             """,
-                        cols.toString(), e.toString());
-                    continue;
+                        cols, e.toString());
                 }
-//            } else {
-//                log.warn("Invalid row: " + cols);
-//            }
-
+            }
+             else {
+                log.warn("Invalid row: " + cols);
+            }
         }
         return lessons;
     }

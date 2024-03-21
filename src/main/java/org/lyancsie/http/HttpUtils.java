@@ -1,4 +1,6 @@
-package org.lyancsie;
+package org.lyancsie.http;
+
+import org.lyancsie.config.PropertiesLoader;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,11 +11,7 @@ import java.util.Properties;
 
 public class HttpUtils {
 
-    static {
-        properties = PropertiesLoader.getProperties();
-    }
-
-    static final Properties properties;
+    static final Properties properties = PropertiesLoader.getProperties();
 
     private HttpUtils() {
     }

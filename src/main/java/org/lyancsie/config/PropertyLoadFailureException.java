@@ -1,7 +1,7 @@
-package org.lyancsie.exception;
+package org.lyancsie.config;
 
 public class PropertyLoadFailureException extends RuntimeException {
-    static final String MESSAGE = "Failed to load properties";
+    private static final String MESSAGE = "Failed to load properties";
     public PropertyLoadFailureException(Throwable cause) {
         super(MESSAGE, cause);
     }

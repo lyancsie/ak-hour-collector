@@ -1,4 +1,4 @@
-package org.lyancsie;
+package org.lyancsie.lesson;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

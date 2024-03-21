@@ -1,6 +1,5 @@
-package org.lyancsie;
+package org.lyancsie.config;
 
-import org.lyancsie.exception.PropertyLoadFailureException;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -13,6 +12,7 @@ import java.util.Properties;
 public class PropertiesLoader {
 
     private static final String APPLICATION_YML = "application.yml";
+    private static final String YML_PATH = "src/main/resources/application.yml";
     private static Properties INSTANCE;
 
     private PropertiesLoader() {
@@ -38,8 +38,8 @@ public class PropertiesLoader {
         return configuration;
     }
 
-    public static List<String> getUrlsFromYaml(String filePath) {
-        try (FileInputStream fis = new FileInputStream(filePath)) {
+    public static List<String> getUrlsFromYaml() {
+        try (FileInputStream fis = new FileInputStream(YML_PATH)) {
             Yaml yaml = new Yaml();
             Map<String, List<String>> yamlData = yaml.load(fis);
             return yamlData.get("urls");

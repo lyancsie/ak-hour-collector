@@ -1,0 +1,45 @@
+package org.lyancsie.email;
+
+import lombok.extern.slf4j.Slf4j;
+import org.lyancsie.lesson.Lesson;
+import org.lyancsie.lesson.LessonType;
+import org.lyancsie.lesson.LessonAggregator;
+import org.lyancsie.config.PropertiesLoader;
+
+import java.util.Set;
+
+@Slf4j
+public class EmailGenerator {
+    private static final int HOURLY_WAGE = Integer.parseInt(PropertiesLoader.getProperties().getProperty("hourly-wage"));
+    private static final String EMAIL_TEMPLATE = """
+        Sziasztok!
+        
+        Küldöm az aktuális havi órákat:
+        
+        Csoportos órák: %.0f
+        Privát órák: %.0f
+        
+        Így összesen %.0f órát tartottam, ami %d Forintos óradíj mellett %d Ft + ÁFA
+        kiszámlázását jelenti.
+        
+        Köszi és üdv:
+        Csongi
+        """;
+
+    public String generateEmail(Set<Lesson> lessons) {
+        final double numberOfLessons = LessonAggregator.aggregateLessons(lessons);
+        final double numberOfGroupLessons = LessonAggregator.aggregateLessons(lessons, LessonType.GROUP);
+        final double numberOfPrivateLessons = LessonAggregator.aggregateLessons(lessons, LessonType.PRIVATE);
+        log.debug("Number of lessons: {}", numberOfLessons);
+        log.debug("Lessons: " + lessons);
+        return String.format(EMAIL_TEMPLATE,
+            numberOfGroupLessons,
+            numberOfPrivateLessons,
+            numberOfLessons,
+            HOURLY_WAGE,
+            (int) (numberOfLessons * HOURLY_WAGE)
+        );
+    }
+
+
+}
