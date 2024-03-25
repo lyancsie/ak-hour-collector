@@ -33,6 +33,7 @@ public class HttpUtils {
             .header("Authorization", "Basic " + getEncodedAuth())
             .GET()
             .build();
+        //GET, POST, PUT, DELETE
     }
 
     public static HttpClient getClient() {

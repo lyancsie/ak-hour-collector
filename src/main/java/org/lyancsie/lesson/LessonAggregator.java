@@ -11,6 +11,8 @@ import java.util.Set;
 @Slf4j
 public class LessonAggregator {
 
+    private static final String EXAM_REGEX = ".*[Ss]zintfelmérő$";
+
     private LessonAggregator() {
     }
 
@@ -20,9 +22,17 @@ public class LessonAggregator {
 
     public static double aggregateLessons(Set<Lesson> lessons) {
         final var firstDayOfTheMonth = LocalDate.of(YEAR, MONTH, 1);
+        log.debug(
+            "Aggregated lessons: {}",
+            lessons.stream()
+                .filter(lesson -> lesson.getDate().isAfter(firstDayOfTheMonth.minusDays(1)))
+                .filter(lesson -> lesson.getDate().isBefore(firstDayOfTheMonth.with(TemporalAdjusters.lastDayOfMonth())))
+                .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX)).toList().toString());
+
         return lessons.stream()
             .filter(lesson -> lesson.getDate().isAfter(firstDayOfTheMonth.minusDays(1)))
             .filter(lesson -> lesson.getDate().isBefore(firstDayOfTheMonth.with(TemporalAdjusters.lastDayOfMonth())))
+            .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX))
             .map(Lesson::getDuration)
             .reduce(Double::sum)
             .orElse(0.0);
@@ -34,10 +44,22 @@ public class LessonAggregator {
             return aggregateLessons(lessons);
         }
         final var firstDayOfTheMonth = LocalDate.of(YEAR, MONTH, 1);
+        for (Lesson lesson : lessons) {
+            log.debug("Topic: " + lesson.getTopic() + " " + lesson.getTopic().matches(EXAM_REGEX));
+        }
+        log.debug(
+            "Aggregated lessons: {}",
+            lessons.stream()
+                .filter(lesson -> lesson.getDate().isAfter(firstDayOfTheMonth.minusDays(1)))
+                .filter(lesson -> lesson.getDate().isBefore(firstDayOfTheMonth.with(TemporalAdjusters.lastDayOfMonth())))
+                .filter(lesson -> lesson.getLessonType().equals(type))
+                .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX)).toList().toString());
+
         return lessons.stream()
             .filter(lesson -> lesson.getDate().isAfter(firstDayOfTheMonth.minusDays(1)))
             .filter(lesson -> lesson.getDate().isBefore(firstDayOfTheMonth.with(TemporalAdjusters.lastDayOfMonth())))
             .filter(lesson -> lesson.getLessonType().equals(type))
+            .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX))
             .map(Lesson::getDuration)
             .reduce(Double::sum)
             .orElse(0.0);

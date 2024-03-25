@@ -31,7 +31,8 @@ public class GroupLessonHtmlExtractorStrategy implements LessonHtmlExtractorStra
                     log.info("Cols.size: {}", cols.size());
                     final var lesson = new GroupLesson(
                         LocalDate.parse(cols.get(1).text(), formatter),
-                        Double.parseDouble(cols.get(3).text().split(" ")[0])
+                        Double.parseDouble(cols.get(3).text().split(" ")[0]),
+                        cols.get(4).text()
                     );
                     lessons.add(lesson);
                 } catch (Exception e) {

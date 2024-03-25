@@ -13,4 +13,5 @@ public abstract class Lesson {
     private final LessonType lessonType;
     private final LocalDate date;
     private final double duration;
+    private final String topic;
 }

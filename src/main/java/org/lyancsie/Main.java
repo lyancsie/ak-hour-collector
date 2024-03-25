@@ -5,6 +5,7 @@ import org.lyancsie.deserializer.LessonDeserializer;
 import org.lyancsie.lesson.Lesson;
 import org.lyancsie.email.EmailGenerator;
 
+import java.net.URISyntaxException;
 import java.util.Set;
 
 @Slf4j
@@ -13,7 +14,7 @@ public class Main {
     private static final LessonDeserializer lessonDeserializer = new LessonDeserializer();
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException {
         Set<Lesson> lessons = lessonDeserializer.deserializeLessons();
 
         log.debug("Number of lessons: {}", lessons.size());

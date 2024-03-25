@@ -27,11 +27,11 @@ public class EmailGenerator {
         """;
 
     public String generateEmail(Set<Lesson> lessons) {
+        //JSP, Thymeleaf, FreeMarker
         final double numberOfLessons = LessonAggregator.aggregateLessons(lessons);
         final double numberOfGroupLessons = LessonAggregator.aggregateLessons(lessons, LessonType.GROUP);
         final double numberOfPrivateLessons = LessonAggregator.aggregateLessons(lessons, LessonType.PRIVATE);
         log.debug("Number of lessons: {}", numberOfLessons);
-        log.debug("Lessons: " + lessons);
         return String.format(EMAIL_TEMPLATE,
             numberOfGroupLessons,
             numberOfPrivateLessons,

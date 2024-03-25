@@ -40,3 +40,4 @@ build/
 
 ### Application.yml ###
 application.yml
+oauth-credentials.json
