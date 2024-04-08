@@ -22,5 +22,9 @@ public class Main {
 
         EmailGenerator emailGenerator = new EmailGenerator();
         log.info(emailGenerator.generateEmail(lessons));
+
+        /*
+        A gmail küldéshez nyissak majd egy új package-t?
+         */
     }
 }
