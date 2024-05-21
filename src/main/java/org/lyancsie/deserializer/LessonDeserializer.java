@@ -63,7 +63,7 @@ public class LessonDeserializer {
             case "Haladási napló" -> {
                 return LessonType.GROUP;
             }
-            case "Magánórák-teszt" -> {
+            case "Magánórák" -> {
                 return LessonType.PRIVATE;
             }
             default -> throw new IllegalArgumentException("Unknown lesson type");
