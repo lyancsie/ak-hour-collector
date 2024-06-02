@@ -18,7 +18,7 @@ public class Main {
         Set<Lesson> lessons = lessonDeserializer.deserializeLessons();
 
         log.debug("Number of lessons: {}", lessons.size());
-        log.info("Lessons: " + lessons);
+        log.debug("Lessons: " + lessons);
 
         EmailGenerator emailGenerator = new EmailGenerator();
         log.info(emailGenerator.generateEmail(lessons));

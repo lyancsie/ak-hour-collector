@@ -28,7 +28,7 @@ public class GroupLessonHtmlExtractorStrategy implements LessonHtmlExtractorStra
             Elements cols = row.select("td");
             if (cols.size() == 13) {
                 try {
-                    log.info("Cols.size: {}", cols.size());
+                    log.debug("Cols.size: {}", cols.size());
                     final var lesson = new GroupLesson(
                         LocalDate.parse(cols.get(1).text(), formatter),
                         Double.parseDouble(cols.get(3).text().split(" ")[0]),

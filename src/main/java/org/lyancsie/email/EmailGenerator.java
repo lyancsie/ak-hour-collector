@@ -58,6 +58,4 @@ public class EmailGenerator {
             (int) (numberOfLessons * HOURLY_WAGE)
         );
     }
-
-
 }
