@@ -46,12 +46,12 @@ To run this application, you need to set the following environment variables:
    # For Gmail integration setup (development)
    git checkout develop
    ```
-
 3. **Create AWS and set the environment variables:**
     - Create an AWS account
     - Create credentials
     - Set AWS_ACCESS_KEY and AWS_SECRET_ACCESS_KEY for the lambda branch.
-4. **Install dependencies:**
+4. Verify e-mail addresses for both the sender and the recipient e-mail in AWS  
+5. **Install dependencies:**
    ```bash
    mvn clean install
    ```
