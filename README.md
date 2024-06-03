@@ -12,6 +12,7 @@ Welcome to the monthly lesson e-mail sending for the teachers of A&K Academy! Th
 
 ### `lambda` Branch
 This branch is designed as an AWS Lambda application that sends the lesson statistics of the **previous** month to the director. The director's email address is configurable.
+You can also run it on your own server by setting up a cron job.
 
 ### `master` Branch
 This branch aims to achieve the same goal via Gmail integration. However, it is still a work in progress and not fully functional yet.
@@ -20,15 +21,16 @@ This branch aims to achieve the same goal via Gmail integration. However, it is 
 
 To run this application, you need to set the following environment properties in your application.properties / application.yml file:
 
-| Variable Name       | Description                                       |
-|---------------------|---------------------------------------------------|
-| `atlassian-email`   | Your Atlassian email address                      |
-| `api-key`           | Your Atlassian API key                        |
-| `urls`              | Lesson URLs                                       |
-| `year`              | Year (only required on the `master` branch)       |
-| `month`             | Month (only required on the `master ` branch)     |
-| `hourly-wage`       | Hourly wage rate                                  |
-| `vat`               | Value Added Tax (boolean)                         |
+| Variable Name     | Description                                  |
+|-------------------|----------------------------------------------|
+| `atlassian-email` | Your Atlassian email address                 |
+| `api-key`         | Your Atlassian API key                       |
+| `urls`            | Lesson URLs                                  |
+| `year`            | Year (only required on the `master` branch)  |
+| `month`           | Month (only required on the `master` branch) |
+| `hourly-wage`     | Your hourly wage rate                        |
+| `vat`             | Is Value Added Tax applicable? (boolean)     |
+| `name`            | The name you want to sign the letter with    |
 
 ## 📝 Setup Instructions
 

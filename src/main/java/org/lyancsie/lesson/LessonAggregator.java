@@ -21,23 +21,22 @@ public class LessonAggregator {
     public static double aggregateLessons(Set<Lesson> lessons) {
 
         final var firstDayOfTheMonth = getFirstDayOfPreviousMonth();
-        log.info(
-            "Aggregated lessons: {}",
-            lessons.stream()
-                .filter(lesson -> lesson.getDate().isAfter(firstDayOfTheMonth.minusDays(1)))
-                .filter(lesson -> lesson.getDate().isBefore(firstDayOfTheMonth.with(TemporalAdjusters.lastDayOfMonth())))
-                .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX)).toList().toString());
-
-        return lessons.stream()
+        final var lessonList = lessons.stream()
             .filter(lesson -> lesson.getDate().isAfter(firstDayOfTheMonth.minusDays(1)))
             .filter(lesson -> lesson.getDate().isBefore(firstDayOfTheMonth.with(TemporalAdjusters.lastDayOfMonth())))
-            .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX))
+            .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX)).toList();
+
+        log.info(
+            "Aggregated lessons: {}",
+             lessonList
+        );
+
+        return lessonList.stream()
             .map(Lesson::getDuration)
             .reduce(Double::sum)
             .orElse(0.0);
     }
 
-    //FIXME -> teachers are not working during exams!
     public static double aggregateLessons(Set<Lesson> lessons, LessonType type) {
         if (type == null) {
             return aggregateLessons(lessons);
@@ -46,20 +45,20 @@ public class LessonAggregator {
         for (Lesson lesson : lessons) {
             log.debug("Topic: " + lesson.getTopic() + " " + lesson.getTopic().matches(EXAM_REGEX));
         }
-        log.info(
-            "Aggregated {} lessons: {}",
-            type,
-            lessons.stream()
-                .filter(lesson -> lesson.getDate().isAfter(firstDayOfPreviousMonth.minusDays(1)))
-                .filter(lesson -> lesson.getDate().isBefore(firstDayOfPreviousMonth.with(TemporalAdjusters.lastDayOfMonth())))
-                .filter(lesson -> lesson.getLessonType().equals(type))
-                .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX)).toList().toString());
 
-        return lessons.stream()
+        final var lessonList = lessons.stream()
             .filter(lesson -> lesson.getDate().isAfter(firstDayOfPreviousMonth.minusDays(1)))
             .filter(lesson -> lesson.getDate().isBefore(firstDayOfPreviousMonth.with(TemporalAdjusters.lastDayOfMonth())))
             .filter(lesson -> lesson.getLessonType().equals(type))
-            .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX))
+            .filter(lesson -> !lesson.getTopic().matches(EXAM_REGEX)).toList();
+
+        log.info(
+            "Aggregated {} lessons: {}",
+            type,
+            lessonList
+        );
+
+        return lessonList.stream()
             .map(Lesson::getDuration)
             .reduce(Double::sum)
             .orElse(0.0);
