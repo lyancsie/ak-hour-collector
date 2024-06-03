@@ -15,6 +15,7 @@ import java.util.Set;
 public class EmailGenerator {
     private static final int HOURLY_WAGE = Integer.parseInt(PropertiesLoader.getProperties().getProperty("hourly-wage"));
     private static final boolean IS_VAT = Boolean.parseBoolean(PropertiesLoader.getProperties().getProperty("vat"));
+    private static final String NAME = PropertiesLoader.getProperties().getProperty("name");
     private static final String EMAIL_TEMPLATE =
         IS_VAT ?
             """
@@ -29,7 +30,7 @@ public class EmailGenerator {
                 kiszámlázását jelenti.
                         
                 Köszi és üdv:
-                Csongi
+                %s
                 """
             :
             """
@@ -44,7 +45,7 @@ public class EmailGenerator {
                 kiszámlázását jelenti.
                            
                 Köszi és üdv:
-                Csongi
+                %s
                 """;
 
     private static final String HTML_EMAIL_TEMPLATE = """
@@ -58,7 +59,7 @@ public class EmailGenerator {
                 </ul>
                 <p>Így összesen %.0f órát tartottam, ami %d Forintos óradíj mellett %d Ft + ÁFA kiszámlázását jelenti.</p>
                 <p>Köszi és üdv:</p>
-                <p>Csongi</p>
+                <p>%s</p>
             </body>
         </html>""";
 
@@ -71,17 +72,18 @@ public class EmailGenerator {
         return getFormattedText(lessons, HTML_EMAIL_TEMPLATE);
     }
 
-    private static String getFormattedText(Set<Lesson> lessons, String htmlEmailTemplate) {
+    private static String getFormattedText(Set<Lesson> lessons, String template) {
         final double numberOfLessons = LessonAggregator.aggregateLessons(lessons);
         final double numberOfGroupLessons = LessonAggregator.aggregateLessons(lessons, LessonType.GROUP);
         final double numberOfPrivateLessons = LessonAggregator.aggregateLessons(lessons, LessonType.PRIVATE);
         log.debug("Number of lessons: {}", numberOfLessons);
-        return String.format(htmlEmailTemplate,
+        return String.format(template,
             numberOfGroupLessons,
             numberOfPrivateLessons,
             numberOfLessons,
             HOURLY_WAGE,
-            (int) (numberOfLessons * HOURLY_WAGE)
+            (int) (numberOfLessons * HOURLY_WAGE),
+            NAME
         );
     }
 }
