@@ -13,7 +13,7 @@ Welcome to the monthly lesson e-mail sending for the teachers of A&K Academy! Th
 ### `lambda` Branch
 This branch is designed as an AWS Lambda application that sends the lesson statistics of the **previous** month to the director. The director's email address is configurable.
 
-### `develop` Branch
+### `master` Branch
 This branch aims to achieve the same goal via Gmail integration. However, it is still a work in progress and not fully functional yet.
 
 ## ⚙️ Environment Variables
