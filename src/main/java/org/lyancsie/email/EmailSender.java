@@ -6,6 +6,7 @@ import com.amazonaws.services.simpleemail.AmazonSimpleEmailServiceClientBuilder;
 import com.amazonaws.services.simpleemail.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.lyancsie.config.PropertiesLoader;
 import org.lyancsie.lesson.Lesson;
 
 import java.io.IOException;
@@ -14,8 +15,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 @Slf4j
 public class EmailSender {
-    static final String FROM = "nagycsongorors@gmail.com";
-    static final String TO = "nagycsongorors@gmail.com";
+    static final String FROM = PropertiesLoader.getProperties().getProperty("sender-email");
+    static final String TO = PropertiesLoader.getProperties().getProperty("recipient-email");
     private static final String UTF_8 = "UTF-8";
     private static final String SUBJECT = "Havi órák";
 
