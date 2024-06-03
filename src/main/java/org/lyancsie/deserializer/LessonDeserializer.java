@@ -35,13 +35,6 @@ public class LessonDeserializer {
             lessons.addAll(getLessonListFromHtml(lessonHtml, lessonJson));
         }
         return Set.copyOf(lessons);
-//        return lessons;
-//        return lessonUrls.stream()
-//            .map(this::getLessonJson)
-//            .map(this::getHtmlFromJson)
-//            .map(this::getLessonListFromHtml)
-//            .flatMap(Collection::stream)
-//            .collect(Collectors.toSet());
     }
 
     private Set<? extends Lesson> getLessonListFromHtml(String lessonHtml, JsonObject lessonJson) {
