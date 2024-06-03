@@ -1,6 +1,6 @@
-# 📧 Email Sending Application
+# 📧 A&K Academy Email Sending Application
 
-Welcome to the Email Sending Application! This application allows teachers to share links to their lessons, collect the number of those lessons, and send the statistics to the company's director at the beginning of every month.
+Welcome to the monthly lesson e-mail sending for the teachers of A&K Academy! This application allows teachers to provide the app links to their lessons, collect the number of those lessons, and send the details to the company's director at the beginning of every month.
 
 ## 🚀 Main Features
 
@@ -14,12 +14,12 @@ Welcome to the Email Sending Application! This application allows teachers to sh
 This branch is designed as an AWS Lambda application that sends the lesson statistics of the **previous** month to the director. The director's email address is configurable.
 You can also run it on your own server by setting up a cron job.
 
-### `develop` Branch
+### `master` Branch
 This branch aims to achieve the same goal via Gmail integration. However, it is still a work in progress and not fully functional yet.
 
 ## ⚙️ Environment Variables
 
-To run this application, you need to set the following environment variables:
+To run this application, you need to set the following environment properties in your application.properties / application.yml file:
 
 | Variable Name     | Description                                  |
 |-------------------|----------------------------------------------|
@@ -52,8 +52,9 @@ To run this application, you need to set the following environment variables:
 3. **Create AWS and set the environment variables:**
     - Create an AWS account
     - Create credentials
-    - Set AWS_ACCESS_KEY and AWS_SECRET_ACCESS_KEY for the lambda branch. 
-4. **Install dependencies:**
+    - Set AWS_ACCESS_KEY and AWS_SECRET_ACCESS_KEY for the lambda branch.
+4. Verify e-mail addresses for both the sender and the recipient e-mail in AWS  
+5. **Install dependencies:**
    ```bash
    mvn clean install
    ```
