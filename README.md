@@ -23,7 +23,7 @@ To run this application, you need to set the following environment properties in
 | Variable Name       | Description                                       |
 |---------------------|---------------------------------------------------|
 | `atlassian-email`   | Your Atlassian email address                      |
-| `api-key`           | Your configuration API key                        |
+| `api-key`           | Your Atlassian API key                        |
 | `urls`              | Lesson URLs                                       |
 | `year`              | Year (only required on the `master` branch)       |
 | `month`             | Month (only required on the `master ` branch)     |
