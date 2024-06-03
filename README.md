@@ -18,7 +18,7 @@ This branch aims to achieve the same goal via Gmail integration. However, it is 
 
 ## ⚙️ Environment Variables
 
-To run this application, you need to set the following environment variables:
+To run this application, you need to set the following environment properties in your application.properties / application.yml file:
 
 | Variable Name       | Description                                       |
 |---------------------|---------------------------------------------------|
