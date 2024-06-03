@@ -1,4 +1,4 @@
-# 📧 Email Sending Application
+# 📧 A&K Academy Email Sending Application
 
 Welcome to the monthly lesson e-mail sending for the teachers of A&K Academy! This application allows teachers to provide the app links to their lessons, collect the number of those lessons, and send the details to the company's director at the beginning of every month.
 
