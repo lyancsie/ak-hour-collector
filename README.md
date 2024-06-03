@@ -25,8 +25,8 @@ To run this application, you need to set the following environment properties in
 | `atlassian-email`   | Your Atlassian email address                      |
 | `api-key`           | Your configuration API key                        |
 | `urls`              | Lesson URLs                                       |
-| `year`              | Year (only required on the `develop` branch)      |
-| `month`             | Month (only required on the `develop` branch)     |
+| `year`              | Year (only required on the `master` branch)       |
+| `month`             | Month (only required on the `master ` branch)     |
 | `hourly-wage`       | Hourly wage rate                                  |
 | `vat`               | Value Added Tax (boolean)                         |
 
