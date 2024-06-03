@@ -2,9 +2,11 @@ package org.lyancsie;
 
 import lombok.extern.slf4j.Slf4j;
 import org.lyancsie.deserializer.LessonDeserializer;
+import org.lyancsie.email.EmailSender;
 import org.lyancsie.lesson.Lesson;
 import org.lyancsie.email.EmailGenerator;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Set;
 
@@ -14,13 +16,14 @@ public class Main {
     private static final LessonDeserializer lessonDeserializer = new LessonDeserializer();
 
 
-    public static void main(String[] args) throws URISyntaxException {
+    public static void main(String[] args) throws IOException {
         Set<Lesson> lessons = lessonDeserializer.deserializeLessons();
 
         log.debug("Number of lessons: {}", lessons.size());
         log.debug("Lessons: " + lessons);
 
-        EmailGenerator emailGenerator = new EmailGenerator();
-        log.info(emailGenerator.generateEmail(lessons));
+        log.info(EmailGenerator.generateEmailBody(lessons));
+        EmailSender emailSender = new EmailSender(lessons);
+        emailSender.sendEmail();
     }
 }

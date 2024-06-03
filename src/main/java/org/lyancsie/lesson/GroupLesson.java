@@ -1,7 +1,6 @@
 package org.lyancsie.lesson;
 
 import lombok.ToString;
-
 import java.time.LocalDate;
 
 @ToString(callSuper = true)

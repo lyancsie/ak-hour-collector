@@ -1,5 +1,6 @@
 package org.lyancsie.email;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.lyancsie.config.PropertiesLoader;
 import org.lyancsie.lesson.Lesson;
@@ -9,14 +10,16 @@ import org.lyancsie.lesson.LessonType;
 import java.util.Set;
 
 @Slf4j
+@UtilityClass
+//TODO: refactor to use a template engine
 public class EmailGenerator {
     private static final int HOURLY_WAGE = Integer.parseInt(PropertiesLoader.getProperties().getProperty("hourly-wage"));
     private static final boolean IS_VAT = Boolean.parseBoolean(PropertiesLoader.getProperties().getProperty("vat"));
     private static final String EMAIL_TEMPLATE =
         IS_VAT ?
             """
-                Sziasztok!
-                        
+                Szia, Dóri!
+                      
                 Küldöm az aktuális havi órákat:
                         
                 Csoportos órák: %.0f
@@ -44,13 +47,36 @@ public class EmailGenerator {
                 Csongi
                 """;
 
-    public String generateEmail(Set<Lesson> lessons) {
+    private static final String HTML_EMAIL_TEMPLATE = """
+        <html>
+            <body>
+                <h1>Szia, Dóri!</h1>
+                <p>Küldöm az aktuális havi órákat:</p>
+                <ul>
+                    <li>Csoportos órák: %.0f</li>
+                    <li>Privát órák: %.0f</li>
+                </ul>
+                <p>Így összesen %.0f órát tartottam, ami %d Forintos óradíj mellett %d Ft + ÁFA kiszámlázását jelenti.</p>
+                <p>Köszi és üdv:</p>
+                <p>Csongi</p>
+            </body>
+        </html>""";
+
+    public static String generateEmailBody(Set<Lesson> lessons) {
         //JSP, Thymeleaf, FreeMarker
+        return getFormattedText(lessons, EMAIL_TEMPLATE);
+    }
+
+    public static String generateEmailBodyHtml(Set<Lesson> lessons) {
+        return getFormattedText(lessons, HTML_EMAIL_TEMPLATE);
+    }
+
+    private static String getFormattedText(Set<Lesson> lessons, String htmlEmailTemplate) {
         final double numberOfLessons = LessonAggregator.aggregateLessons(lessons);
         final double numberOfGroupLessons = LessonAggregator.aggregateLessons(lessons, LessonType.GROUP);
         final double numberOfPrivateLessons = LessonAggregator.aggregateLessons(lessons, LessonType.PRIVATE);
         log.debug("Number of lessons: {}", numberOfLessons);
-        return String.format(EMAIL_TEMPLATE,
+        return String.format(htmlEmailTemplate,
             numberOfGroupLessons,
             numberOfPrivateLessons,
             numberOfLessons,
