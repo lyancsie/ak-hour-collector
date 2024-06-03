@@ -34,8 +34,8 @@ public class EmailGenerator {
                 """
             :
             """
-                Sziasztok!
-                           
+                Szia, Dóri!
+
                 Küldöm az aktuális havi órákat:
                            
                 Csoportos órák: %.0f
