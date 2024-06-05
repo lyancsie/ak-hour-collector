@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.lyancsie.config.PropertiesLoader;
 import org.lyancsie.lesson.Lesson;
 
-import java.io.IOException;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -19,33 +18,45 @@ public class EmailSender {
     static final String TO = PropertiesLoader.getProperties().getProperty("recipient-email");
     private static final String UTF_8 = "UTF-8";
     private static final String SUBJECT = "Havi órák";
+    private static final String EMAIL_NOT_SENT_MESSAGE = "The email was not sent to {}. Error message: ";
 
     private final Set<Lesson> lessons;
 
-    public void sendEmail() throws IOException {
+    public void sendEmail() {
+        AmazonSimpleEmailService client =
+            AmazonSimpleEmailServiceClientBuilder.standard()
+                .withRegion(Regions.EU_CENTRAL_1)
+                .build();
+
+        sendEmailTo(client, FROM);
+        sendEmailTo(client, TO);
+    }
+
+    private void sendEmailTo(AmazonSimpleEmailService client, String recipientEmail) {
+        final String textBody = EmailGenerator.generateEmailBody(lessons);
+        final String htmlBody = EmailGenerator.generateEmailBodyHtml(lessons);
+
+        final var emailRequest = getEmailRequest(htmlBody, textBody, recipientEmail);
         try {
-            final String textBody = EmailGenerator.generateEmailBody(lessons);
-            final String htmlBody = EmailGenerator.generateEmailBodyHtml(lessons);
-            AmazonSimpleEmailService client =
-                AmazonSimpleEmailServiceClientBuilder.standard()
-                    .withRegion(Regions.EU_CENTRAL_1).build();
-            SendEmailRequest request = new SendEmailRequest()
-                .withDestination(
-                    new Destination().withToAddresses(TO))
-                .withMessage(new Message()
-                    .withBody(new Body()
-                        .withHtml(new Content()
-                            .withCharset(UTF_8).withData(htmlBody))
-                        .withText(new Content()
-                            .withCharset(UTF_8).withData(textBody)))
-                    .withSubject(new Content()
-                        .withCharset(UTF_8).withData(SUBJECT)))
-                .withSource(FROM);
-            client.sendEmail(request);
-            log.info("Email sent!");
+            client.sendEmail(emailRequest);
+            log.info("Email sent to {}!", recipientEmail);
         } catch (Exception ex) {
-            log.error("The email was not sent. Error message: "
-                + ex.getMessage());
+            log.error(EMAIL_NOT_SENT_MESSAGE, recipientEmail + ex.getMessage());
         }
+    }
+
+    private static SendEmailRequest getEmailRequest(String htmlBody, String textBody, String recipientEmail) {
+        return new SendEmailRequest()
+            .withDestination(
+                new Destination().withToAddresses(recipientEmail))
+            .withMessage(new Message()
+                .withBody(new Body()
+                    .withHtml(new Content()
+                        .withCharset(UTF_8).withData(htmlBody))
+                    .withText(new Content()
+                        .withCharset(UTF_8).withData(textBody)))
+                .withSubject(new Content()
+                    .withCharset(UTF_8).withData(SUBJECT)))
+            .withSource(FROM);
     }
 }

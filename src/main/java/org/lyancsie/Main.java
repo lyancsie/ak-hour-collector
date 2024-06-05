@@ -2,12 +2,11 @@ package org.lyancsie;
 
 import lombok.extern.slf4j.Slf4j;
 import org.lyancsie.deserializer.LessonDeserializer;
+import org.lyancsie.email.EmailGenerator;
 import org.lyancsie.email.EmailSender;
 import org.lyancsie.lesson.Lesson;
-import org.lyancsie.email.EmailGenerator;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.Set;
 
 @Slf4j
