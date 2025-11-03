@@ -15,7 +15,7 @@ public class Main {
     private static final LessonDeserializer lessonDeserializer = new LessonDeserializer();
 
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         Set<Lesson> lessons = lessonDeserializer.deserializeLessons();
 
         log.debug("Number of lessons: {}", lessons.size());
