@@ -19,7 +19,7 @@ public class Main {
         Set<Lesson> lessons = lessonDeserializer.deserializeLessons();
 
         log.debug("Number of lessons: {}", lessons.size());
-        log.debug("Lessons: " + lessons);
+        log.debug("Lessons: {}", lessons);
 
         log.info(EmailGenerator.generateEmailBody(lessons));
         EmailSender emailSender = new EmailSender(lessons);

@@ -1,5 +1,6 @@
 package org.lyancsie.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.FileInputStream;
@@ -9,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+@Slf4j
 public class PropertiesLoader {
 
     private static final String APPLICATION_YML = "application.yml";
@@ -44,7 +46,8 @@ public class PropertiesLoader {
             Map<String, List<String>> yamlData = yaml.load(fis);
             return yamlData.get("urls");
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            log.error("Failed to load URLs from YAML", e);
             return null;
         }
     }

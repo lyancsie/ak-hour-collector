@@ -43,7 +43,7 @@ public class LessonAggregator {
         }
         final var firstDayOfPreviousMonth = getFirstDayOfPreviousMonth();
         for (Lesson lesson : lessons) {
-            log.debug("Topic: " + lesson.getTopic() + " " + lesson.getTopic().matches(EXAM_REGEX));
+            log.debug("Topic: {} {}", lesson.getTopic(), lesson.getTopic().matches(EXAM_REGEX));
         }
 
         final var lessonList = lessons.stream()
