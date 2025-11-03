@@ -6,7 +6,6 @@ import org.lyancsie.email.EmailGenerator;
 import org.lyancsie.email.EmailSender;
 import org.lyancsie.lesson.Lesson;
 
-import java.io.IOException;
 import java.util.Set;
 
 @Slf4j
