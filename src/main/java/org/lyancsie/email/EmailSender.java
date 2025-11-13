@@ -30,8 +30,7 @@ public class EmailSender {
 
     public void sendEmail() {
         AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(
-                new AWSCredentials(
-                ) {
+                new AWSCredentials() {
                     @Override
                     public String getAWSAccessKeyId() {
                         return AWS_ACCESS_KEY_ID;
@@ -45,8 +44,6 @@ public class EmailSender {
         );
         AmazonSimpleEmailService client =
                 AmazonSimpleEmailServiceClientBuilder.standard()
-//                .withRegion(Regions.EU_CENTRAL_1)
-//                    .withRegion(Regions.EU_NORTH_1)
                         .withRegion(REGION)
                         .withCredentials(credentialsProvider)
                         .build();

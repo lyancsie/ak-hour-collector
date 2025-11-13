@@ -42,7 +42,7 @@ public class PrivateLessonHtmlExtractorStrategy implements LessonHtmlExtractorSt
                     break;
                 }
             } else {
-                log.warn("Invalid row: " + cols);
+                log.warn("Invalid row: {}", cols);
             }
 
         }

@@ -46,7 +46,6 @@ public class PropertiesLoader {
             Map<String, List<String>> yamlData = yaml.load(fis);
             return yamlData.get("urls");
         } catch (IOException e) {
-//            e.printStackTrace();
             log.error("Failed to load URLs from YAML", e);
             return null;
         }
