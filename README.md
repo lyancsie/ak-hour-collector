@@ -23,7 +23,11 @@ To run this application, you need to set the following environment properties in
 
 | Variable Name     | Description                                  |
 |-------------------|----------------------------------------------|
+| `aws.accessKeyId` | AWS credential Access Key Id                 |
+| `aws.secretKey`   | AWS credential Secret Key                    |
+| `aws.region`      | AWS parameter region                         |
 | `atlassian-email` | Your Atlassian email address                 |
+| `recipient-email` | Recipient's email address                    |
 | `api-key`         | Your Atlassian API key                       |
 | `urls`            | Lesson URLs                                  |
 | `year`            | Year (only required on the `master` branch)  |
